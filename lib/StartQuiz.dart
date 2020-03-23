@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_quizapp/Quiz.dart';
+
+import 'package:flutter_quizapp/QuizScreen.dart';
 
 class StartQuiz extends StatelessWidget {
   @override
@@ -17,14 +18,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Quiz newQuiz = new Quiz();
-
-
   TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
 
   @override
   Widget build(BuildContext context) {
-
     final startButton = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
@@ -35,7 +32,7 @@ class _HomePageState extends State<HomePage> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => Quiz()),
+            MaterialPageRoute(builder: (context) => QuizScreen()),
           );
         },
         child: Text("Start Quiz",
@@ -68,12 +65,8 @@ class _HomePageState extends State<HomePage> {
           'QuizApp',
         ),
         textTheme: TextTheme(
-          title: TextStyle(
-            fontFamily: 'Lobster',
-            fontSize: 30,
-            color: Colors.black
-          )
-        ),
+            title: TextStyle(
+                fontFamily: 'Lobster', fontSize: 30, color: Colors.black)),
       ),
       body: Center(
         child: Container(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quizapp/StartQuiz.dart';
 
+import 'controller/Quiz.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -27,40 +29,45 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
 
-  final usernameInput = TextEditingController();
-  final passwordInput = TextEditingController();
+  String username;
+  String password;
 
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
-    usernameInput.dispose();
-    passwordInput.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-
     final usernameField = TextField(
       obscureText: false,
       style: style,
-      controller: usernameInput,
+      onChanged: (input) {
+        setState(() {
+          username = input;
+        });
+      },
       decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           hintText: "Username",
           border:
-          OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+              OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
     );
 
     final passwordField = TextField(
       obscureText: true,
       style: style,
-      controller: passwordInput,
+      onChanged: (input) {
+        setState(() {
+          password = input;
+        });
+      },
       decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           hintText: "Password",
           border:
-          OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+              OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
     );
 
     final loginButton = Material(
@@ -70,11 +77,17 @@ class _LoginPageState extends State<LoginPage> {
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-        onPressed: () {
-          Navigator.push(
+        onPressed: () async {
+          Quiz quiz = Quiz();
+          quiz.username = username;
+          quiz.pin = password;
+          bool check = await quiz.startQuiz(0);
+          if (check) {
+            Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => StartQuiz()),
-          );
+            );
+          }
         },
         child: Text("Login",
             textAlign: TextAlign.center,
@@ -94,12 +107,9 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 SizedBox(
-                  height: 155.0,
-                  child: Text(
-                    'QuizApp',
-                    style: TextStyle(fontSize: 75, fontFamily: 'Lobster')
-                  )
-                ),
+                    height: 155.0,
+                    child: Text('QuizApp',
+                        style: TextStyle(fontSize: 75, fontFamily: 'Lobster'))),
                 usernameField,
                 SizedBox(height: 25.0),
                 passwordField,

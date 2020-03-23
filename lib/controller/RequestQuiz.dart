@@ -13,9 +13,9 @@ class RequestQuiz {
 
   String quizToString(quiz) {
     if (quiz < 10) {
-      return "quiz0${quiz}";
+      return "quiz0$quiz";
     }
-    return "quiz${quiz}";
+    return "quiz$quiz";
   }
 
   Future<Map<String, dynamic>> getQuiz(Map body) async {

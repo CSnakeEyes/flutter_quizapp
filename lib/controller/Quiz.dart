@@ -11,6 +11,11 @@ import 'package:flutter_quizapp/model/Question.dart';
 class Quiz {
   String error; //Any error related with the server
 
+  static final Quiz _instance = Quiz._internal();
+
+  String username;
+  String pin;
+
   String name; //Quiz name
   List<dynamic> questions; //Quiz questions
   List<dynamic> answers; //User answers to questions
@@ -19,16 +24,20 @@ class Quiz {
   List<dynamic> incorrectAnswers; //List of incorrect answers
   List<dynamic> currentList; //List of questions or list of incorrect answers
 
-  ///dummy constructor for Quiz controller.
-  Quiz();
+  ///Constructor for singleton Quiz controller.
+  factory Quiz() {
+    return _instance;
+  }
+
+  Quiz._internal();
 
   ///Calls the server with [user] and [pin] credentials to
   ///get the quiz number [quiz] and updates the quiz object in case
   ///call was successfully, otherwise updates [error].
-  Future<bool> startQuiz(String user, String pin, int quiz) async {
+  Future<bool> startQuiz(int quiz) async {
     ///Create map of parameters to send it to the server
     ///Needed parameters: user, pin, quiz
-    Map data = {"user": user, "pin": pin, "quiz": quiz};
+    Map data = {"user": username, "pin": pin, "quiz": quiz};
 
     ///Call to the server
     RequestQuiz requester = RequestQuiz();
@@ -64,6 +73,7 @@ class Quiz {
       'options': (currentQuestion.question.runtimeType == 'MultipleQuestion')
           ? currentQuestion.question.option
           : null,
+      'answer': (this.answers[pos] != null) ? this.answers[pos] : null,
     };
     return questionData;
   }
