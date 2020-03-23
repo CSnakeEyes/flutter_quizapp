@@ -27,12 +27,24 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
 
+  final usernameInput = TextEditingController();
+  final passwordInput = TextEditingController();
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    usernameInput.dispose();
+    passwordInput.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
 
     final usernameField = TextField(
       obscureText: false,
       style: style,
+      controller: usernameInput,
       decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           hintText: "Username",
@@ -43,6 +55,7 @@ class _LoginPageState extends State<LoginPage> {
     final passwordField = TextField(
       obscureText: true,
       style: style,
+      controller: passwordInput,
       decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           hintText: "Password",
