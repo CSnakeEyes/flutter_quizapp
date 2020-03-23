@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quizapp/Quiz.dart';
-import 'package:flutter_quizapp/main.dart';
 
 class StartQuiz extends StatelessWidget {
   @override

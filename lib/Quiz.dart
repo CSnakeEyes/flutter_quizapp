@@ -87,11 +87,7 @@ class _QuizQuestionState extends State<QuizQuestion> {
                     )
                   ],
                 ),
-                Row(
-                  children: <Widget>[
-                    answerField
-                  ],
-                ),
+                answerField,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
