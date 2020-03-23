@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_quizapp/Quiz.dart';
 import 'package:flutter_quizapp/main.dart';
 
 class StartQuiz extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Quizapp',
-      theme: ThemeData(
-        primarySwatch: Colors.amber,
-      ),
-      home: HomePage(title: 'Flutter Quizapp'),
-    );
+    return HomePage(title: 'Flutter Quizapp');
   }
 }
 
@@ -31,11 +26,16 @@ class _HomePageState extends State<HomePage> {
     final startButton = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
-      color: Color(0xff01A0C7),
+      color: Color(0xFFFFC107),
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Quiz()),
+          );
+        },
         child: Text("Start Quiz",
             textAlign: TextAlign.center,
             style: style.copyWith(
@@ -46,15 +46,12 @@ class _HomePageState extends State<HomePage> {
     final logoutButton = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
-      color: Color(0xff01A0C7),
+      color: Color(0xff37474F),
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => MyApp()),
-          );
+          Navigator.pop(context);
         },
         child: Text("Log Out",
             textAlign: TextAlign.center,
@@ -64,6 +61,18 @@ class _HomePageState extends State<HomePage> {
     );
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'QuizApp',
+        ),
+        textTheme: TextTheme(
+          title: TextStyle(
+            fontFamily: 'Lobster',
+            fontSize: 30,
+            color: Colors.black
+          )
+        ),
+      ),
       body: Center(
         child: Container(
           child: Padding(

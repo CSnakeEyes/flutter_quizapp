@@ -39,6 +39,7 @@ class _LoginPageState extends State<LoginPage> {
           border:
           OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
     );
+
     final passwordField = TextField(
       obscureText: true,
       style: style,
@@ -48,10 +49,11 @@ class _LoginPageState extends State<LoginPage> {
           border:
           OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
     );
+
     final loginButton = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
-      color: Color(0xff01A0C7),
+      color: Color(0xffffc40f),
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -81,8 +83,8 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(
                   height: 155.0,
                   child: Text(
-                    'QuizAPP',
-                    style: TextStyle(fontSize: 75),
+                    'QuizApp',
+                    style: TextStyle(fontSize: 75, fontFamily: 'Lobster')
                   )
                 ),
                 usernameField,
