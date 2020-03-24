@@ -20,53 +20,30 @@ class _QuizQuestionState extends State<QuizQuestion> {
   TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
   Quiz quiz = Quiz();
   Map currentQuestion;
+  int selectedBox;
 
   _QuizQuestionState() {
     currentQuestion = quiz.getCurrentQuestion();
   }
 
   void goToNextQuestion() {
-    quiz.next();
     setState(() {
+      selectedBox = null;
+      quiz.next();
       currentQuestion = quiz.getCurrentQuestion();
     });
   }
 
   void goToPrevQuestion() {
-    quiz.previous();
     setState(() {
+      selectedBox = null;
+      quiz.previous();
       currentQuestion = quiz.getCurrentQuestion();
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    dynamic answers = currentQuestion['answers'];
-
-    final multipleChoice = <Widget>[
-      ListTile(
-        title: Text("pls"),
-        leading: Radio(
-          value: null,
-          groupValue: null,
-        ),
-      ),
-      ListTile(
-        title: Text("pls"),
-        leading: Radio(
-          value: null,
-          groupValue: null,
-        ),
-      ),
-      ListTile(
-        title: Text("pls"),
-        leading: Radio(
-          value: null,
-          groupValue: null,
-        ),
-      ),
-    ];
-
     final answerField = TextField(
       obscureText: false,
       style: style,
@@ -121,9 +98,11 @@ class _QuizQuestionState extends State<QuizQuestion> {
                 )
               ],
             ),
-            Row(
-              children: multipleChoice,
-            ),
+            (currentQuestion["options"] != null)
+                ? Column(
+                    children: _buildCheckboxes(currentQuestion["options"]),
+                  )
+                : answerField,
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[previousButton, submitButton, nextButton],
@@ -132,5 +111,21 @@ class _QuizQuestionState extends State<QuizQuestion> {
         ),
       ),
     )));
+  }
+
+  List<Widget> _buildCheckboxes(List<dynamic> options) {
+    return options.asMap().entries.map((entry) {
+      return CheckboxListTile(
+        title: Text(entry.value),
+        value: selectedBox == entry.key,
+        onChanged: (newValue) {
+          setState(() {
+            selectedBox = entry.key;
+          });
+        },
+        controlAffinity:
+            ListTileControlAffinity.leading, //  <-- leading Checkbox
+      );
+    }).toList();
   }
 }

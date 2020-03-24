@@ -70,7 +70,7 @@ class Quiz {
       'type': currentQuestion.question.type,
       'stem': currentQuestion.question.stem,
       'figure': currentQuestion.question.figure,
-      'options': (currentQuestion.question.runtimeType == 'MultipleQuestion')
+      'options': (currentQuestion.question.type == 1)
           ? currentQuestion.question.option
           : null,
       'answer': (this.answers[pos] != null) ? this.answers[pos] : null,
