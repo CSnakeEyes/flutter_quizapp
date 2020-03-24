@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_quizapp/QuizScreen.dart';
 
+import 'controller/Quiz.dart';
+
 class StartQuiz extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -19,9 +21,37 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
+  String dropdownValue = 'Quiz 0';
+  int selectedQuiz = 0;
+
+  List<DropdownMenuItem<String>> quizList = ['Quiz 0', 'Quiz 1', 'Quiz 2', 'Quiz 3', 'Quiz 4']
+      .map<DropdownMenuItem<String>>((String value) {
+    return DropdownMenuItem<String>(
+      value: value,
+      child: Text(value),
+    );
+  }).toList();
 
   @override
   Widget build(BuildContext context) {
+    final quizMenu = DropdownButton(
+        value: dropdownValue,
+        style: style.copyWith(
+          color: Colors.black, fontWeight: FontWeight.bold
+        ),
+        icon: Icon(Icons.arrow_drop_down),
+        iconSize: 30,
+        elevation: 5,
+        items: quizList,
+        onChanged: (String newValue) {
+          setState(() {
+            // ignore: unrelated_type_equality_checks
+            selectedQuiz = quizList.indexWhere((item) => item == newValue);
+            dropdownValue = newValue;
+          });
+        }
+    );
+
     final startButton = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
@@ -29,11 +59,15 @@ class _HomePageState extends State<HomePage> {
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => QuizScreen()),
-          );
+        onPressed: () async {
+          Quiz quiz = Quiz();
+          bool check = await quiz.startQuiz(7);
+          if (check) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => QuizScreen()),
+            );
+          }
         },
         child: Text("Start Quiz",
             textAlign: TextAlign.center,
@@ -76,6 +110,8 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                quizMenu,
+                SizedBox(height: 25.0),
                 startButton,
                 SizedBox(height: 25.0),
                 logoutButton

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_quizapp/controller/Quiz.dart';
 
 class QuizScreen extends StatelessWidget {
   @override
@@ -17,22 +18,30 @@ class QuizQuestion extends StatefulWidget {
 
 class _QuizQuestionState extends State<QuizQuestion> {
   TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
+  Quiz selectedQuiz = new Quiz();
 
   void goToNextQuestion(BuildContext context) {
-    //Quiz newQuestion = new Quiz();
+    QuizScreen newQuestion = new QuizScreen();
+    selectedQuiz.next();
 
-    /*Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => newQuestion),
-    );*/
+    if (selectedQuiz.pos < selectedQuiz.questions.length) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => newQuestion),
+      );
+    }
   }
 
   void goToPrevQuestion(BuildContext context) {
-    Navigator.pop(context);
+    selectedQuiz.previous();
+    if (selectedQuiz.pos > -1)
+      Navigator.pop(context);
   }
 
   @override
   Widget build(BuildContext context) {
+    String question = selectedQuiz.getCurrentQuestion()['stem'];
+
     final answerField = TextField(
       obscureText: false,
       style: style,
@@ -80,23 +89,21 @@ class _QuizQuestionState extends State<QuizQuestion> {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Text("Question X",
-                    style: style.copyWith(fontWeight: FontWeight.bold))
+                Container(
+                  width: MediaQuery.of(context).size.width*0.8,
+                  child: Text("$question",
+                      style: style.copyWith(fontWeight: FontWeight.bold)
+                  ),
+                )
               ],
             ),
             answerField,
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Column(
-                  children: <Widget>[previousButton],
-                ),
-                Column(
-                  children: <Widget>[submitButton],
-                ),
-                Column(
-                  children: <Widget>[nextButton],
-                )
+                previousButton,
+                submitButton,
+                nextButton
               ],
             )
           ],
