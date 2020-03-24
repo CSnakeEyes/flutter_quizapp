@@ -41,6 +41,32 @@ class _QuizQuestionState extends State<QuizQuestion> {
 
   @override
   Widget build(BuildContext context) {
+    dynamic answers = currentQuestion['answers'];
+
+    final multipleChoice = <Widget>[
+      ListTile(
+        title: Text("pls"),
+        leading: Radio(
+          value: null,
+          groupValue: null,
+        ),
+      ),
+      ListTile(
+        title: Text("pls"),
+        leading: Radio(
+          value: null,
+          groupValue: null,
+        ),
+      ),
+      ListTile(
+        title: Text("pls"),
+        leading: Radio(
+          value: null,
+          groupValue: null,
+        ),
+      ),
+    ];
+
     final answerField = TextField(
       obscureText: false,
       style: style,
@@ -95,7 +121,9 @@ class _QuizQuestionState extends State<QuizQuestion> {
                 )
               ],
             ),
-            answerField,
+            Row(
+              children: multipleChoice,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[previousButton, submitButton, nextButton],
