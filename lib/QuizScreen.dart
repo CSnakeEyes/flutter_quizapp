@@ -18,30 +18,29 @@ class QuizQuestion extends StatefulWidget {
 
 class _QuizQuestionState extends State<QuizQuestion> {
   TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
-  Quiz selectedQuiz = new Quiz();
+  Quiz quiz = Quiz();
+  Map currentQuestion;
 
-  void goToNextQuestion(BuildContext context) {
-    QuizScreen newQuestion = new QuizScreen();
-    selectedQuiz.next();
-
-    if (selectedQuiz.pos < selectedQuiz.questions.length) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => newQuestion),
-      );
-    }
+  _QuizQuestionState() {
+    currentQuestion = quiz.getCurrentQuestion();
   }
 
-  void goToPrevQuestion(BuildContext context) {
-    selectedQuiz.previous();
-    if (selectedQuiz.pos > -1)
-      Navigator.pop(context);
+  void goToNextQuestion() {
+    quiz.next();
+    setState(() {
+      currentQuestion = quiz.getCurrentQuestion();
+    });
+  }
+
+  void goToPrevQuestion() {
+    quiz.previous();
+    setState(() {
+      currentQuestion = quiz.getCurrentQuestion();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    String question = selectedQuiz.getCurrentQuestion()['stem'];
-
     final answerField = TextField(
       obscureText: false,
       style: style,
@@ -67,7 +66,7 @@ class _QuizQuestionState extends State<QuizQuestion> {
         color: Color(0xFFFFC107),
         tooltip: 'Previous question',
         onPressed: () {
-          goToPrevQuestion(context);
+          goToPrevQuestion();
         });
 
     final nextButton = IconButton(
@@ -75,7 +74,7 @@ class _QuizQuestionState extends State<QuizQuestion> {
         color: Color(0xFFFFC107),
         tooltip: 'Next question',
         onPressed: () {
-          goToNextQuestion(context);
+          goToNextQuestion();
         });
 
     return Scaffold(
@@ -90,21 +89,16 @@ class _QuizQuestionState extends State<QuizQuestion> {
             Row(
               children: <Widget>[
                 Container(
-                  width: MediaQuery.of(context).size.width*0.8,
-                  child: Text("$question",
-                      style: style.copyWith(fontWeight: FontWeight.bold)
-                  ),
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  child: Text("${currentQuestion['stem']}",
+                      style: style.copyWith(fontWeight: FontWeight.bold)),
                 )
               ],
             ),
             answerField,
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                previousButton,
-                submitButton,
-                nextButton
-              ],
+              children: <Widget>[previousButton, submitButton, nextButton],
             )
           ],
         ),
