@@ -134,7 +134,7 @@ class Quiz {
     int incorrect = 0;
     this.incorrectAnswers = List<dynamic>();
 
-    //Go thorugh all questions and check answers
+    //Go through all questions and check answers
     for (int i = 0; i < this.questions.length; i++) {
       if (this.questions[i].checkAnswer(this.answers[i])) {
         correct++;

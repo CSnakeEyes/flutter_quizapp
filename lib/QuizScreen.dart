@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_quizapp/GradeQuiz.dart';
 import 'package:flutter_quizapp/controller/Quiz.dart';
 
 class QuizScreen extends StatelessWidget {
@@ -21,6 +22,8 @@ class _QuizQuestionState extends State<QuizQuestion> {
   Quiz quiz = Quiz();
   Map currentQuestion;
   int selectedBox;
+  String answer;
+  bool _isButtonDisabled = true;
 
   _QuizQuestionState() {
     currentQuestion = quiz.getCurrentQuestion();
@@ -28,7 +31,13 @@ class _QuizQuestionState extends State<QuizQuestion> {
 
   void goToNextQuestion() {
     setState(() {
+      if (selectedBox == null)
+        quiz.updateAnswer(answer);
+      else
+        quiz.updateAnswer(selectedBox);
+      
       selectedBox = null;
+      answer = null;
       quiz.next();
       currentQuestion = quiz.getCurrentQuestion();
     });
@@ -37,8 +46,15 @@ class _QuizQuestionState extends State<QuizQuestion> {
   void goToPrevQuestion() {
     setState(() {
       selectedBox = null;
+      answer = null;
       quiz.previous();
       currentQuestion = quiz.getCurrentQuestion();
+    });
+  }
+
+  void _submitQuiz() {
+    setState(() {
+      _isButtonDisabled = false;
     });
   }
 
@@ -47,6 +63,11 @@ class _QuizQuestionState extends State<QuizQuestion> {
     final answerField = TextField(
       obscureText: false,
       style: style,
+      onChanged: (input) {
+        setState(() {
+          answer = input;
+        });
+      },
       decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           hintText: "Write your answer here",
@@ -62,7 +83,16 @@ class _QuizQuestionState extends State<QuizQuestion> {
             icon: Icon(Icons.file_upload),
             color: Colors.white,
             tooltip: 'Submit quiz',
-            onPressed: () {}));
+            onPressed: () {
+              if(quiz.getProgress() == 1) {
+                Navigator.push(
+                  context,
+                    MaterialPageRoute(builder: (context) => GradeQuiz())
+                );
+              }
+            }
+            )
+    );
 
     final previousButton = IconButton(
         icon: Icon(Icons.arrow_back_ios),
@@ -83,33 +113,33 @@ class _QuizQuestionState extends State<QuizQuestion> {
     return Scaffold(
         body: Center(
             child: Container(
-      child: Padding(
-        padding: EdgeInsets.all(35.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  child: Text("${currentQuestion['stem']}",
-                      style: style.copyWith(fontWeight: FontWeight.bold)),
-                )
-              ],
-            ),
-            (currentQuestion["options"] != null)
-                ? Column(
-                    children: _buildCheckboxes(currentQuestion["options"]),
-                  )
-                : answerField,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[previousButton, submitButton, nextButton],
-            )
-          ],
-        ),
-      ),
+              child: Padding(
+                padding: EdgeInsets.all(35.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          child: Text("${currentQuestion['stem']}",
+                              style: style.copyWith(fontWeight: FontWeight.bold)),
+                        )
+                      ],
+                    ),
+                    (currentQuestion["options"] != null)
+                        ? Column(
+                            children: _buildCheckboxes(currentQuestion["options"]),
+                          )
+                        : answerField,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[previousButton, submitButton, nextButton],
+                    )
+                  ],
+                ),
+              ),
     )));
   }
 

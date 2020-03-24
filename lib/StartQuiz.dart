@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
   String dropdownValue = 'Quiz 0';
   int selectedQuiz = 0;
 
-  List<DropdownMenuItem<String>> quizList = ['Quiz 0', 'Quiz 1', 'Quiz 2', 'Quiz 3', 'Quiz 4']
+  List<DropdownMenuItem<String>> quizList = ['Quiz 0', 'Quiz 1', 'Quiz 2', 'Quiz 3', 'Quiz 4', 'Quiz 5', 'Quiz 6', 'Quiz 7']
       .map<DropdownMenuItem<String>>((String value) {
     return DropdownMenuItem<String>(
       value: value,
