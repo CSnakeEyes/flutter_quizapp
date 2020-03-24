@@ -31,11 +31,11 @@ class _QuizQuestionState extends State<QuizQuestion> {
 
   void goToNextQuestion() {
     setState(() {
-      if (selectedBox == null)
-        quiz.updateAnswer(answer);
-      else
+      if (selectedBox != null)
         quiz.updateAnswer(selectedBox);
-      
+      else if (answer != null)
+        quiz.updateAnswer(answer);
+
       selectedBox = null;
       answer = null;
       quiz.next();
@@ -45,6 +45,11 @@ class _QuizQuestionState extends State<QuizQuestion> {
 
   void goToPrevQuestion() {
     setState(() {
+      if (selectedBox != null)
+        quiz.updateAnswer(selectedBox);
+      else if (answer != null)
+        quiz.updateAnswer(answer);
+
       selectedBox = null;
       answer = null;
       quiz.previous();
@@ -84,12 +89,16 @@ class _QuizQuestionState extends State<QuizQuestion> {
             color: Colors.white,
             tooltip: 'Submit quiz',
             onPressed: () {
-              if(quiz.getProgress() == 1) {
-                Navigator.push(
+              Navigator.push(
                   context,
-                    MaterialPageRoute(builder: (context) => GradeQuiz())
-                );
-              }
+                  MaterialPageRoute(builder: (context) => GradeQuiz())
+              );
+//              if(quiz.getProgress() == 0.95) {
+//                Navigator.push(
+//                  context,
+//                    MaterialPageRoute(builder: (context) => GradeQuiz())
+//                );
+//              }
             }
             )
     );

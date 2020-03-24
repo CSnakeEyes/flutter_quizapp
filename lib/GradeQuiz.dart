@@ -25,7 +25,7 @@ class _GradeState extends State<Grade> {
       body: Center(
         child: Text(
           'Congratulation you have finished the quiz! \n'
-              'With a grade of ${evaluation['grade']}'
+              'With a grade of ${quiz.getProgress()}'
         ),
       ),
     );
