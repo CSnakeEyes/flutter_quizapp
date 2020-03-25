@@ -3,6 +3,8 @@ import 'package:flutter_quizapp/controller/Quiz.dart';
 import 'package:flutter_quizapp/widgets/CustomButton.dart';
 import 'package:flutter_quizapp/widgets/LoadingModal.dart';
 
+import 'QuizScreen.dart';
+
 class StartScreen extends StatefulWidget {
   static final String id = "start_screen";
 
@@ -86,7 +88,7 @@ class _StartScreenState extends State<StartScreen> {
                     bool check = await quiz.startQuiz(selectedIndex);
                     setState(() => visible = false);
                     if (check) {
-                      //Navigator.pushNamed(context, StartQuizScreen.id);
+                      Navigator.pushNamed(context, QuizScreen.id);
                     } else {
                       print("Error bitch");
                     }

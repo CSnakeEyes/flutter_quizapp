@@ -1,10 +1,13 @@
-/**
- * Name: FillBlankQuestion
- * Authors: Miguel A. Zamudio & Cristian Ayub
- * Description: Contains all methods that allow the creation and management of
- * a fill-in-the-blank question
- * Last update: Mar 19, 2020
- */
+/// Name: FillBlankQuestion
+
+/// Authors: Miguel A. Zamudio & Cristian Ayub
+
+/// Description: Contains all methods that allow the creation and management of
+
+/// a fill-in-the-blank question
+
+/// Last update: Mar 19, 2020
+
 class FillBlankQuestion {
   var type;
   var stem;

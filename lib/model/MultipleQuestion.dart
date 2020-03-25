@@ -1,10 +1,12 @@
-/**
- * Name: MultipleQuestion
- * Authors: Miguel A. Zamudio & Cristian Ayub
- * Description: Contains all methods that allow the creation and management of
- * a multiple choice question
- * Last update: Mar 19, 2020
- */
+/// Name: MultipleQuestion
+
+/// Authors: Miguel A. Zamudio & Cristian Ayub
+
+/// Description: Contains all methods that allow the creation and management of
+
+/// a multiple choice question
+
+/// Last update: Mar 19, 2020
 
 class MultipleQuestion {
   var type;

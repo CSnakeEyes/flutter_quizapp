@@ -5,14 +5,18 @@ class CustomTextField extends StatelessWidget {
   final bool obscure;
   final String hintText;
   final Function onChanged;
+  final TextEditingController inputController;
 
-  CustomTextField({this.obscure, this.hintText, this.onChanged});
+  CustomTextField(
+      {this.obscure, this.hintText, this.onChanged, this.inputController});
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       obscureText: obscure,
       style: style,
+      onChanged: onChanged,
+      controller: inputController,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.symmetric(
           horizontal: 20.0,
@@ -21,7 +25,6 @@ class CustomTextField extends StatelessWidget {
         hintText: hintText,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
-      onChanged: onChanged,
     );
   }
 }

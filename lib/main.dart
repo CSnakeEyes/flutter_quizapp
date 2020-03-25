@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_quizapp/view/QuizScreen.dart';
 import 'package:flutter_quizapp/view/StartScreen.dart';
 
 import 'view/LoginScreen.dart';
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
       routes: {
         LoginScreen.id: (context) => LoginScreen(),
         StartScreen.id: (context) => StartScreen(),
+        QuizScreen.id: (context) => QuizScreen(),
       },
     );
   }

@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 class RequestQuiz {
-  final String BASE_URI =
+  final String baseUri =
       "http://www.cs.utep.edu/cheon/cs4381/homework/quiz/post.php";
   final List<int> validQuizzes = [0, 1, 2, 3, 4, 5, 6, 7];
   String error;
@@ -27,7 +27,7 @@ class RequestQuiz {
 
     HttpClient httpClient = HttpClient();
 
-    HttpClientRequest req = await httpClient.postUrl(Uri.parse(BASE_URI));
+    HttpClientRequest req = await httpClient.postUrl(Uri.parse(baseUri));
     req.headers.set('content-type', 'application/json');
     req.add(utf8.encode(json.encode(body)));
 
