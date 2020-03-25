@@ -51,6 +51,7 @@ class _QuizQuestionState extends State<QuizQuestion> {
 
       selectedBox = null;
       answer = null;
+      inputFieldC.clear();
       quiz.previous();
       currentQuestion = quiz.getCurrentQuestion();
     });

@@ -51,10 +51,7 @@ class _GradeState extends State<Grade> {
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         onPressed: () {
-          Navigator.pop(
-              context,
-              MaterialPageRoute(builder: (context) => StartQuiz())
-          );
+          Navigator.popAndPushNamed(context, '.StartQuiz');
         },
         child: Text("Exit",
             textAlign: TextAlign.center,
