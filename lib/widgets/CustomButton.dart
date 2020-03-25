@@ -18,13 +18,13 @@ class CustomButton extends StatelessWidget {
       onPressed: onPressed,
       shape: RoundedRectangleBorder(
         borderRadius: new BorderRadius.circular(30.0),
-        side: BorderSide(color: Color(0xffffc40f)),
+        side: BorderSide(color: Color(0xffffc40f), width: 2.0),
       ),
       child: Text(
         text,
         textAlign: TextAlign.center,
         style: style.copyWith(
-          color: Colors.white,
+          color: (contained) ? Colors.white : Color(0xffffc40f),
           fontWeight: FontWeight.bold,
         ),
       ),

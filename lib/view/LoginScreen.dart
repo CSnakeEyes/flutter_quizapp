@@ -4,6 +4,8 @@ import 'package:flutter_quizapp/widgets/CustomButton.dart';
 import 'package:flutter_quizapp/widgets/CustomTextField.dart';
 import 'package:flutter_quizapp/widgets/LoadingModal.dart';
 
+import 'StartScreen.dart';
+
 class LoginScreen extends StatefulWidget {
   static final String id = "login_screen";
 
@@ -69,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       visible = false;
                     });
                     if (check) {
-                      //Navigator.pushNamed(context, StartQuizScreen.id);
+                      Navigator.pushNamed(context, StartScreen.id);
                     } else {
                       print("Error bitch");
                     }
