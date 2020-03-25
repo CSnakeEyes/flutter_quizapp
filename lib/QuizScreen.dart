@@ -18,12 +18,12 @@ class QuizQuestion extends StatefulWidget {
 }
 
 class _QuizQuestionState extends State<QuizQuestion> {
-  TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
+  TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 18.0);
   Quiz quiz = Quiz();
+  TextEditingController inputFieldC = TextEditingController();
   Map currentQuestion;
   int selectedBox;
   String answer;
-  bool _isButtonDisabled = true;
 
   _QuizQuestionState() {
     currentQuestion = quiz.getCurrentQuestion();
@@ -33,11 +33,11 @@ class _QuizQuestionState extends State<QuizQuestion> {
     setState(() {
       if (selectedBox != null)
         quiz.updateAnswer(selectedBox);
-      else if (answer != null)
-        quiz.updateAnswer(answer);
+      else if (answer != null) quiz.updateAnswer(answer);
 
       selectedBox = null;
       answer = null;
+      inputFieldC.clear();
       quiz.next();
       currentQuestion = quiz.getCurrentQuestion();
     });
@@ -47,8 +47,7 @@ class _QuizQuestionState extends State<QuizQuestion> {
     setState(() {
       if (selectedBox != null)
         quiz.updateAnswer(selectedBox);
-      else if (answer != null)
-        quiz.updateAnswer(answer);
+      else if (answer != null) quiz.updateAnswer(answer);
 
       selectedBox = null;
       answer = null;
@@ -57,17 +56,12 @@ class _QuizQuestionState extends State<QuizQuestion> {
     });
   }
 
-  void _submitQuiz() {
-    setState(() {
-      _isButtonDisabled = false;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final answerField = TextField(
       obscureText: false,
       style: style,
+      controller: inputFieldC,
       onChanged: (input) {
         setState(() {
           answer = input;
@@ -89,19 +83,15 @@ class _QuizQuestionState extends State<QuizQuestion> {
             color: Colors.white,
             tooltip: 'Submit quiz',
             onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => GradeQuiz())
-              );
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => GradeQuiz()));
 //              if(quiz.getProgress() == 0.95) {
 //                Navigator.push(
 //                  context,
 //                    MaterialPageRoute(builder: (context) => GradeQuiz())
 //                );
 //              }
-            }
-            )
-    );
+            }));
 
     final previousButton = IconButton(
         icon: Icon(Icons.arrow_back_ios),
@@ -120,36 +110,54 @@ class _QuizQuestionState extends State<QuizQuestion> {
         });
 
     return Scaffold(
+        appBar: AppBar(
+          title: Text(quiz.name),
+        ),
         body: Center(
             child: Container(
-              child: Padding(
-                padding: EdgeInsets.all(35.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.8,
+          child: Padding(
+            padding: EdgeInsets.all(35.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Container(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Text(
+                        "${quiz.pos + 1}/${quiz.currentList.length}",
+                        style: TextStyle(fontSize: 20.0),
+                        textAlign: TextAlign.end,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 8.0,
+                          vertical: 24.0,
+                        ),
+                        child: Container(
                           child: Text("${currentQuestion['stem']}",
-                              style: style.copyWith(fontWeight: FontWeight.bold)),
-                        )
-                      ],
-                    ),
-                    (currentQuestion["options"] != null)
-                        ? Column(
-                            children: _buildCheckboxes(currentQuestion["options"]),
-                          )
-                        : answerField,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[previousButton, submitButton, nextButton],
-                    )
-                  ],
+                              style:
+                                  style.copyWith(fontWeight: FontWeight.bold)),
+                        ),
+                      ),
+                      (currentQuestion["options"] != null)
+                          ? Column(
+                              children:
+                                  _buildCheckboxes(currentQuestion["options"]),
+                            )
+                          : answerField,
+                    ],
+                  ),
                 ),
-              ),
-    )));
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[previousButton, submitButton, nextButton],
+                )
+              ],
+            ),
+          ),
+        )));
   }
 
   List<Widget> _buildCheckboxes(List<dynamic> options) {
