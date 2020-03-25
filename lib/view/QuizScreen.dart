@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quizapp/controller/Quiz.dart';
+import 'package:flutter_quizapp/view/GradeScreen.dart';
 import 'package:flutter_quizapp/widgets/CustomIconButton.dart';
 import 'package:flutter_quizapp/widgets/CustomTextField.dart';
 
@@ -154,8 +155,7 @@ class _QuizScreenState extends State<QuizScreen> {
     saveAnswer();
 
     if (quiz.getProgress() == 1) {
-      //Navigator.push(
-      //context, MaterialPageRoute(builder: (context) => GradeQuiz()));
+      Navigator.pushNamed(context, GradeScreen.id);
     } else {
       print("Incomplete bitch");
     }

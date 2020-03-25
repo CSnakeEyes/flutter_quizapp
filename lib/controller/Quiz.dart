@@ -151,7 +151,7 @@ class Quiz {
     Map evaluation = {
       'correct': correct,
       'incorrect': incorrect,
-      'grade': (correct / this.questions.length) * 100,
+      'grade': (correct / this.questions.length) * 10,
     };
     return evaluation;
   }

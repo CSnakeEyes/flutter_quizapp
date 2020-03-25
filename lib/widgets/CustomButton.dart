@@ -6,7 +6,7 @@ class CustomButton extends StatelessWidget {
   final bool contained;
   final Function onPressed;
 
-  CustomButton({this.text, this.contained, this.onPressed});
+  CustomButton({this.text, this.contained: true, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
