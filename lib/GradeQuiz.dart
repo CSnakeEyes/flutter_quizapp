@@ -31,10 +31,8 @@ class _GradeState extends State<Grade> {
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => StartQuiz()),
-          );
+          quiz.startReview();
+          Navigator.pop(context);
         },
         child: Text("Review Wrong Questions",
             textAlign: TextAlign.center,
@@ -51,7 +49,9 @@ class _GradeState extends State<Grade> {
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         onPressed: () {
-          Navigator.popAndPushNamed(context, '.StartQuiz');
+          //Navigator.pushAndRemoveUntil(context, newRoute, predicate)
+          Navigator.popUntil(context, (routes) => routes == StartQuiz());
+          //Navigator.popAndPushNamed(context, '.StartQuiz');
         },
         child: Text("Exit",
             textAlign: TextAlign.center,
@@ -61,42 +61,44 @@ class _GradeState extends State<Grade> {
     );
 
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          'Congratulations',
-        ),
-        textTheme: TextTheme(
-            title: TextStyle(
-                fontFamily: 'Lobster', fontSize: 30, color: Colors.black)),
-      ),
-      body: Container(
-        child: Padding(
-          padding: EdgeInsets.all(36.0),
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    'Grade',
-                    style: style.copyWith(
-                        color: Colors.black, fontWeight: FontWeight.w100, fontSize: 50.0),
-                  ),
-                  SizedBox(height: 25.0),
-                  Text(
-                    '${evaluation['grade']/10}/10.0',
-                    style: style.copyWith(
-                        color: Colors.black, fontWeight: FontWeight.bold, fontSize: 65.0),
-                  ),
-                  SizedBox(height: 100.0),
-                  reviewButton,
-                  SizedBox(height: 25.0),
-                  exitButton
-                ],
-              )
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text(
+            'Congratulations',
           ),
+          textTheme: TextTheme(
+              title: TextStyle(
+                  fontFamily: 'Lobster', fontSize: 30, color: Colors.black)),
         ),
-      )
-    );
+        body: Container(
+          child: Padding(
+            padding: EdgeInsets.all(36.0),
+            child: Center(
+                child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  'Grade',
+                  style: style.copyWith(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w100,
+                      fontSize: 50.0),
+                ),
+                SizedBox(height: 25.0),
+                Text(
+                  '${evaluation['grade'] / 10}/10.0',
+                  style: style.copyWith(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 65.0),
+                ),
+                SizedBox(height: 100.0),
+                reviewButton,
+                SizedBox(height: 25.0),
+                exitButton
+              ],
+            )),
+          ),
+        ));
   }
 }
