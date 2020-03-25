@@ -83,15 +83,14 @@ class _QuizQuestionState extends State<QuizQuestion> {
             color: Colors.white,
             tooltip: 'Submit quiz',
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => GradeQuiz()));
-//              if(quiz.getProgress() == 0.95) {
-//                Navigator.push(
-//                  context,
-//                    MaterialPageRoute(builder: (context) => GradeQuiz())
-//                );
-//              }
-            }));
+              if(quiz.getProgress() == 1) {
+                Navigator.push(
+                  context,
+                    MaterialPageRoute(builder: (context) => GradeQuiz())
+                );
+              }
+            })
+    );
 
     final previousButton = IconButton(
         icon: Icon(Icons.arrow_back_ios),
