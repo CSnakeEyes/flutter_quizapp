@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quizapp/view/GradeScreen.dart';
 import 'package:flutter_quizapp/view/QuizScreen.dart';
+import 'package:flutter_quizapp/view/ReviewScreen.dart';
 import 'package:flutter_quizapp/view/StartScreen.dart';
 
 import 'view/LoginScreen.dart';
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
         StartScreen.id: (context) => StartScreen(),
         QuizScreen.id: (context) => QuizScreen(),
         GradeScreen.id: (context) => GradeScreen(),
+        ReviewScreen.id: (context) => ReviewScreen(),
       },
     );
   }

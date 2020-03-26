@@ -26,6 +26,7 @@ class _StartScreenState extends State<StartScreen> {
     'Quiz 7',
   ];
 
+  String error;
   bool visible = false;
   String dropdownValue = 'Quiz 0';
   int selectedIndex = 0;
@@ -54,6 +55,18 @@ class _StartScreenState extends State<StartScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
+                (error != null)
+                    ? Container(
+                        child: Text(
+                          error,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.red,
+                            fontSize: 18.0,
+                          ),
+                        ),
+                      )
+                    : SizedBox(),
                 Text(
                   "Select a quiz:",
                   style: style.copyWith(),
@@ -90,7 +103,7 @@ class _StartScreenState extends State<StartScreen> {
                     if (check) {
                       Navigator.pushNamed(context, QuizScreen.id);
                     } else {
-                      print("Error bitch");
+                      setState(() => error = quiz.error);
                     }
                   },
                 ),

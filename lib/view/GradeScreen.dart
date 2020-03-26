@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quizapp/controller/Quiz.dart';
+import 'package:flutter_quizapp/view/ReviewScreen.dart';
 import 'package:flutter_quizapp/view/StartScreen.dart';
 import 'package:flutter_quizapp/widgets/CustomButton.dart';
 
@@ -60,15 +61,21 @@ class _GradeScreenState extends State<GradeScreen> {
                     fontSize: 65.0),
               ),
               SizedBox(height: 100.0),
-              CustomButton(
-                text: "Review Wrong Questions",
-                onPressed: () {},
-              ),
+              (evaluation['correct'] == quiz.questions.length)
+                  ? SizedBox()
+                  : CustomButton(
+                      text: "Review Wrong Questions",
+                      onPressed: () {
+                        quiz.startReview();
+                        Navigator.popAndPushNamed(context, ReviewScreen.id);
+                      },
+                    ),
               SizedBox(height: 25.0),
               CustomButton(
                 text: "Exit",
                 contained: false,
                 onPressed: () {
+                  quiz.resetQuiz();
                   Navigator.pushNamedAndRemoveUntil(
                     context,
                     StartScreen.id,

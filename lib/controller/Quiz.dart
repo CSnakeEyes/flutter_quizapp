@@ -173,13 +173,25 @@ class Quiz {
         'type': question.type,
         'stem': question.stem,
         'figure': question.figure,
-        'options': (question.runtimeType == 'MultipleQuestion')
-            ? question.option
-            : null,
-        'correct': question.answer,
-        'incorrect': currentIncorrect['answer']
+        'options': (question.type == 1) ? question.option : null,
+        'correct': (question.type == 1)
+            ? question.option[currentIncorrect['answer']]
+            : question.answer,
+        'incorrect': (question.type == 1)
+            ? question.option[currentIncorrect['answer']]
+            : currentIncorrect['answer']
       };
     }
     return null;
+  }
+
+  void resetQuiz() {
+    name = null;
+    questions = null;
+    answers = null;
+    pos = 0;
+    isReview = false;
+    incorrectAnswers = null;
+    currentList = null;
   }
 }

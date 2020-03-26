@@ -27,25 +27,30 @@ class RequestQuiz {
 
     HttpClient httpClient = HttpClient();
 
-    HttpClientRequest req = await httpClient.postUrl(Uri.parse(baseUri));
-    req.headers.set('content-type', 'application/json');
-    req.add(utf8.encode(json.encode(body)));
+    try {
+      HttpClientRequest req = await httpClient.postUrl(Uri.parse(baseUri));
+      req.headers.set('content-type', 'application/json');
+      req.add(utf8.encode(json.encode(body)));
 
-    HttpClientResponse res = await req.close();
-    if (res.statusCode == 200) {
-      String reply = await res.transform(utf8.decoder).join();
-      httpClient.close();
+      HttpClientResponse res = await req.close();
+      if (res.statusCode == 200) {
+        String reply = await res.transform(utf8.decoder).join();
+        httpClient.close();
 
-      var response = reply.substring(reply.indexOf('"response"') - 1);
-      Map<String, dynamic> resMap = jsonDecode(response);
-      if (resMap["response"]) {
-        return resMap["quiz"];
+        var response = reply.substring(reply.indexOf('"response"') - 1);
+        Map<String, dynamic> resMap = jsonDecode(response);
+        if (resMap["response"]) {
+          return resMap["quiz"];
+        } else {
+          this.error = resMap["reason"];
+          return null;
+        }
       } else {
-        this.error = resMap["reason"];
+        this.error = "Server returned an 404 status code";
         return null;
       }
-    } else {
-      this.error = "Server returned an 404 status code";
+    } catch (e) {
+      this.error = "Server error";
       return null;
     }
   }

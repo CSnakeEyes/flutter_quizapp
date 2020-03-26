@@ -14,7 +14,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final Quiz quiz = Quiz();
+
   bool visible = false;
+  String error;
   String username;
   String password;
 
@@ -36,6 +39,18 @@ class _LoginScreenState extends State<LoginScreen> {
                     style: TextStyle(fontSize: 75, fontFamily: 'Lobster'),
                   ),
                 ),
+                (error != null)
+                    ? Container(
+                        child: Text(
+                          error,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.red,
+                            fontSize: 18.0,
+                          ),
+                        ),
+                      )
+                    : SizedBox(),
                 CustomTextField(
                   hintText: "Username",
                   obscure: false,
@@ -60,7 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   text: "Login",
                   contained: true,
                   onPressed: () async {
-                    Quiz quiz = Quiz();
+                    error = null;
                     quiz.username = username;
                     quiz.pin = password;
                     setState(() {
@@ -73,7 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     if (check) {
                       Navigator.pushNamed(context, StartScreen.id);
                     } else {
-                      print("Error bitch");
+                      setState(() => error = quiz.error);
                     }
                   },
                 ),
