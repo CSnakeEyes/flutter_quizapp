@@ -29,6 +29,6 @@ class MultipleQuestion {
 
   /// Checks if the response given by the user is correct
   bool checkAnswer(int response) {
-    return response + 1 == this.answer;
+    return response == this.answer - 1;
   }
 }

@@ -37,6 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Text(
                     'QuizApp',
                     style: TextStyle(fontSize: 75, fontFamily: 'Lobster'),
+                    textAlign: TextAlign.center,
                   ),
                 ),
                 (error != null)

@@ -39,7 +39,10 @@ class _QuizScreenState extends State<QuizScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(quiz.name),
+        title: Text(
+          quiz.name,
+          style: TextStyle(fontFamily: 'Lobster'),
+        ),
       ),
       body: Padding(
         padding: EdgeInsets.all(35.0),

@@ -175,10 +175,10 @@ class Quiz {
         'figure': question.figure,
         'options': (question.type == 1) ? question.option : null,
         'correct': (question.type == 1)
-            ? question.option[currentIncorrect['answer']]
+            ? question.option[question.answer]
             : question.answer,
         'incorrect': (question.type == 1)
-            ? question.option[currentIncorrect['answer']]
+            ? question.option[currentIncorrect['answer'] - 1]
             : currentIncorrect['answer']
       };
     }

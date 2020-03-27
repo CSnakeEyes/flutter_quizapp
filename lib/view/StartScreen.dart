@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quizapp/controller/Quiz.dart';
+import 'package:flutter_quizapp/view/LoginScreen.dart';
 import 'package:flutter_quizapp/widgets/CustomButton.dart';
 import 'package:flutter_quizapp/widgets/LoadingModal.dart';
 
@@ -112,7 +113,8 @@ class _StartScreenState extends State<StartScreen> {
                   text: "Log out",
                   contained: false,
                   onPressed: () {
-                    Navigator.pop(context);
+                    Navigator.popUntil(
+                        context, ModalRoute.withName(LoginScreen.id));
                   },
                 ),
               ],
