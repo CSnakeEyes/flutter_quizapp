@@ -25,6 +25,13 @@ class _ReviewScreenState extends State<ReviewScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(quiz.name),
+        textTheme: TextTheme(
+          title: TextStyle(
+            fontFamily: 'Lobster',
+            fontSize: 30,
+            color: Colors.black,
+          ),
+        ),
       ),
       body: Padding(
         padding: EdgeInsets.all(35.0),
