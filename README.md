@@ -39,7 +39,13 @@ The following **bonus** feature is completed:
 
 ## Video Walkthrough
 
-<img src='http://g.recordit.co/gYCaHI4Uvv.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+The following is an example where the question are answered correctly:
+
+<img src='http://g.recordit.co/HCyXqwVMu7.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+The following is an example where the question are answered incorrectly:
+
+<img src='http://g.recordit.co/FmyG6Mc25v.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [Recordit](https://recordit.co).
 
