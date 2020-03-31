@@ -41,5 +41,5 @@ The following **bonus** feature is completed:
 
 <img src='http://g.recordit.co/gYCaHI4Uvv.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
-GIF created with [LiceCap](http://www.cockos.com/licecap/).
+GIF created with [Recordit](https://recordit.co).
 
