@@ -6,7 +6,7 @@ This app was made as a lab project for the class CS 5381 (Cross-Platform App Dev
 
 The following **required** functionality is completed:
 
-- [-] Your app shall support a question with a picture. A question may
+- [ ] Your app shall support a question with a picture. A question may
     have a picture associated with it as shown below, and the picture
     provides an illustration to the question.
 - [x] Your app shall consists of multiple screens to:
